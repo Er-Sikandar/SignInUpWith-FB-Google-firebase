@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "156708654688",
+    "project_id": "fir-reglogapp",
+    "storage_bucket": "fir-reglogapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:156708654688:android:ea40f30571bf80e9fc3d05",
+        "android_client_info": {
+          "package_name": "com.example.firebasereglogapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "156708654688-vs4avkaj5hhf07gmi7c6om95ficu1tqm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDa6TJhzCvwsckKKROZgL9xgq5jQ-hsWE0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "156708654688-vs4avkaj5hhf07gmi7c6om95ficu1tqm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

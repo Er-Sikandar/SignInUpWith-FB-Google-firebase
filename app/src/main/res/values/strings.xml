@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">FirebaseRegLogApp</string>
+    <string name="logout">Logout !</string>
+    <string name="main_activity">main Activity !</string>
+    <string name="create_account">create Account</string>
+    <string name="user">User</string>
+    <string name="admin">Admin</string>
+    <string name="need_services">Need Services</string>
+</resources>
