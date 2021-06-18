@@ -1,4 +1,4 @@
-package com.example.firebasereglogapp;
+package com.example.firebasereglogapp.adapter;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -9,6 +9,8 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.firebasereglogapp.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;

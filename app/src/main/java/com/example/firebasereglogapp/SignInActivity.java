@@ -23,7 +23,6 @@ import static com.example.firebasereglogapp.SignUpActivity.checkFields;
 
 public class SignInActivity extends AppCompatActivity {
     EditText email, password;
-    RecyclerView recyclerView;
     private static boolean valids = true;
 
     DatabaseReference database;
@@ -44,15 +43,7 @@ public class SignInActivity extends AppCompatActivity {
                 if (valids) {
 
                 }
-                /*
-                    for (int i = 0; i <= list.size(); i++) {
-                        ModelCustom modelCustom = new ModelCustom();
-                        name = modelCustom.getName();
-                        lastname = modelCustom.getLastname();
-                        age = modelCustom.getAge();
-                        Log.e("Tag", name + " : " + lastname + " : " + age);
-                    }
-                 */
+
 
                 }
         });
@@ -63,13 +54,9 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
         //recycler view data...
-        recyclerView = findViewById(R.id.re_view);
+
 //firebase................................................
         database = FirebaseDatabase.getInstance().getReference("category");
-        recyclerView.setHasFixedSize(true);
-       // recyclerView.setLayoutManager(new LinearLayoutManager(this));
-      //  MyReAdapter myReAdapter=new MyReAdapter(list,this);
-     //   recyclerView.setAdapter(myReAdapter);
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
