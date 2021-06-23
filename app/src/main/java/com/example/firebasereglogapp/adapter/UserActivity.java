@@ -1,4 +1,4 @@
-package com.example.firebasereglogapp;
+package com.example.firebasereglogapp.adapter;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.firebasereglogapp.adapter.MainAdapter;
+import com.example.firebasereglogapp.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -24,6 +24,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -32,16 +34,22 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+
+import java.util.Collection;
 
 import static com.example.firebasereglogapp.SignUpActivity.checkFields;
 
 public class SignInActivity extends AppCompatActivity {
     EditText email, password;
     private static boolean valids = true;
-    DatabaseReference database;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    ;
+    private FirebaseFirestore firestore =FirebaseFirestore.getInstance();
     private ProgressDialog dialog;
 
     private GoogleSignInClient mGoogleSignInClient;
@@ -53,10 +61,9 @@ public class SignInActivity extends AppCompatActivity {
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         updateUI(currentUser);
         if (currentUser != null) {
-           startActivity(new Intent(SignInActivity.this,MainActivity.class));
-           finish();
+          // startActivity(new Intent(SignInActivity.this,MainActivity.class));
+          // finish();
         } else {
-            Toast.makeText(this, "Please Login !", Toast.LENGTH_SHORT).show();
 
         }
     }
@@ -78,7 +85,7 @@ public class SignInActivity extends AppCompatActivity {
                         password.setError("Min Password Length !");
                         password.requestFocus();
                     } else {
-                        dialog.setMessage("Login User @ Admin..");
+                        dialog.setMessage("Loging User&Admin..");
                         dialog.show();
                         firebaseAuth.signInWithEmailAndPassword(email.getText().toString().trim(), password.getText().toString().trim())
                                 .addOnCompleteListener(SignInActivity.this, new OnCompleteListener<AuthResult>() {
@@ -87,22 +94,33 @@ public class SignInActivity extends AppCompatActivity {
                                         if (task.isSuccessful()) {
                                             FirebaseUser user = firebaseAuth.getCurrentUser();
                                             updateUI(user);
-                                            if (user != null) {
-                                                dialog.dismiss();
-                                                startActivity(new Intent(SignInActivity.this, MainActivity.class));
-                                                Toast.makeText(SignInActivity.this, "Authentication Successfully !.", Toast.LENGTH_SHORT).show();
-                                                finish();
-                                                Toast.makeText(SignInActivity.this, "User ! " + user, Toast.LENGTH_SHORT).show();
-                                            } else {
-                                                Toast.makeText(SignInActivity.this, "User Null !", Toast.LENGTH_SHORT).show();
-                                            }
-
-                                        } else {
-                                            Toast.makeText(SignInActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
-                                            updateUI(null);
+                                            DocumentReference df=firestore.collection("AllDatas").document(user.getUid());
+                                            df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                                @Override
+                                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                    dialog.dismiss();
+                                                    Log.e(" data ","profile "+documentSnapshot.getData());
+                                                    if (documentSnapshot.getString("userType").equalsIgnoreCase("1")){
+                                                        Log.e("user data ","user ");
+                                                        startActivity(new Intent(SignInActivity.this, UserProfileActivity.class));
+                                                        finish();
+                                                    }else if (documentSnapshot.getString("userType").equalsIgnoreCase("3")){
+                                                        Log.e("admin data ","Admin ");
+                                                        startActivity(new Intent(SignInActivity.this, MainActivity.class));
+                                                        finish();
+                                                    }else {
+                                                        Toast.makeText(SignInActivity.this, "Please SignUp !"+documentSnapshot.getString("userType"), Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
                                         }
                                     }
-                                });
+                                }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(SignInActivity.this, "Failed AUTH !", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
                 }
             }
@@ -185,4 +203,24 @@ public class SignInActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Signing FAiled", Toast.LENGTH_SHORT).show();
         }
     }
+private void chechUserOrAdmin(String uid){
+    DocumentReference df=firestore.collection("AllDatas").document(uid);
+    df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        @Override
+        public void onSuccess(DocumentSnapshot documentSnapshot) {
+Log.e("user data ",": "+documentSnapshot.getData());
+if (documentSnapshot.getString("userType")=="1"){
+    Log.e("user data ","user ");
+
+}else if (documentSnapshot.getString("userType")=="3"){
+    Log.e("user data ","Admin ");
+
+}else {
+    Log.e("user data ","esle ");
+
+}
+        }
+    });
+}
+
 }
