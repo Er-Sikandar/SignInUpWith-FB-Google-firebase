@@ -94,10 +94,10 @@ RadioGroup radioGroup;
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     if (task.isSuccessful()) {
                                                         dialog.dismiss();
-                                                        Log.e("Success", " Successfully Registering !"+task);
+                                                        Log.e("Success"," Successfully Registering !"+task);
                                                         onBackPressed();
                                                     } else {
-                                                        Log.e("Failed", " Failed Registering !");
+                                     Log.e("Failed Registering"," Failed Registering !");
                                                     }
                                                 }
                                             });

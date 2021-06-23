@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "156708654688",
+    "firebase_url": "https://fir-reglogapp-default-rtdb.firebaseio.com",
     "project_id": "fir-reglogapp",
     "storage_bucket": "fir-reglogapp.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "156708654688-ucpdj7u4f8ilnrui29htds2trad7efho.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.firebasereglogapp",
+            "certificate_hash": "160eb692d551432aef178739d331cfb3b8d4c4f7"
+          }
+        },
         {
           "client_id": "156708654688-vs4avkaj5hhf07gmi7c6om95ficu1tqm.apps.googleusercontent.com",
           "client_type": 3
